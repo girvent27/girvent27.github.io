@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfólio</title>
+<style>
+:root{--bg:#f2efe9;--ink:#1d2a2e;--muted:#5d6b6f;--line:#cfd6d3;--accent:#1f6f6b;--card:#fbfaf7}
+@media (prefers-color-scheme:dark){:root{--bg:#141c1e;--ink:#e8eeec;--muted:#9aa9ab;--line:#2c3a3d;--accent:#5fc2b8;--card:#1a2427}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 Georgia,"Times New Roman",serif}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:860px;margin:0 auto;padding:0 24px}
+nav{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:5}
+nav .wrap{display:flex;gap:22px;padding-top:14px;padding-bottom:14px;font:15px system-ui,sans-serif}
+nav a{color:var(--muted);text-decoration:none}
+nav a:hover{color:var(--ink)}
+header{padding:96px 0 64px}
+h1{font-size:clamp(2.6rem,9vw,5.2rem);line-height:1.02;margin:0 0 20px;letter-spacing:-.02em;font-weight:700}
+.lead{font-size:1.3rem;max-width:34ch;margin:0 0 28px}
+.btn{display:inline-block;padding:12px 22px;border:1.5px solid var(--ink);color:var(--ink);text-decoration:none;font:600 15px system-ui,sans-serif;border-radius:4px;transition:background .2s,color .2s}
+.btn:hover{background:var(--ink);color:var(--bg)}
+section{padding:56px 0;border-top:1px solid var(--line)}
+h2{font-size:1.9rem;margin:0 0 24px}
+.skills{display:flex;flex-wrap:wrap;gap:10px;padding:0;list-style:none;margin:24px 0 0}
+.skills li{border:1px solid var(--line);padding:5px 14px;border-radius:99px;font:14px system-ui,sans-serif;background:var(--card)}
+.filters{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.filters button{font:14px system-ui,sans-serif;padding:6px 14px;border:1px solid var(--line);background:none;color:var(--muted);border-radius:99px;cursor:pointer}
+.filters button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.projects{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.project{background:var(--card);border:1px solid var(--line);padding:22px;border-radius:6px}
+.project h3{margin:0 0 6px;font-size:1.2rem}
+.project p{margin:0 0 12px;color:var(--muted);font-size:.98rem}
+.project .tags{font:13px system-ui,sans-serif;color:var(--accent)}
+.contact a{display:block;font-size:1.15rem;margin-bottom:6px}
+footer{padding:32px 0 56px;color:var(--muted);font:14px system-ui,sans-serif;border-top:1px solid var(--line)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a href="#sobre">Sobre</a><a href="#projetos">Projetos</a><a href="#contato">Contato</a></div></nav>
+
+<header><div class="wrap">
+  <h1 id="nome"></h1>
+  <p class="lead" id="titulo"></p>
+  <a class="btn" href="#projetos">Ver projetos</a>
+</div></header>
+
+<section id="sobre"><div class="wrap">
+  <h2>Sobre mim</h2>
+  <div id="bio"></div>
+  <ul class="skills" id="skills"></ul>
+</div></section>
+
+<section id="projetos"><div class="wrap">
+  <h2>Projetos</h2>
+  <div class="filters" id="filtros"></div>
+  <div class="projects" id="lista"></div>
+</div></section>
+
+<section id="contato"><div class="wrap contact">
+  <h2>Contato</h2>
+  <div id="links"></div>
+</div></section>
+
+<footer><div class="wrap">© <span id="ano"></span> <span id="rodape"></span></div></footer>
+
+<script>
+// ✏️ EDITE APENAS ESTE BLOCO com as suas informações
+const DADOS = {
+  nome: "Seu Nome",
+  titulo: "Sua profissão ou área, em uma frase. Ex.: Desenvolvedor web que transforma ideias em produtos simples de usar.",
+  bio: [
+    "Escreva aqui um parágrafo sobre quem você é, onde mora e o que gosta de fazer.",
+    "Um segundo parágrafo sobre sua trajetória, o que está aprendendo e o que busca agora."
+  ],
+  skills: ["HTML", "CSS", "JavaScript", "Python", "Git"],
+  projetos: [
+    { nome: "Projeto 1", desc: "Descreva o problema que resolveu e o resultado.", tags: ["Web", "JavaScript"], link: "#" },
+    { nome: "Projeto 2", desc: "Conte o que você construiu e qual tecnologia usou.", tags: ["Python", "Automação"], link: "#" },
+    { nome: "Projeto 3", desc: "Explique em uma ou duas frases o objetivo do projeto.", tags: ["Web", "Design"], link: "#" }
+  ],
+  contatos: [
+    { texto: "seuemail@exemplo.com", href: "mailto:seuemail@exemplo.com" },
+    { texto: "GitHub", href: "https://github.com/seuusuario" },
+    { texto: "LinkedIn", href: "https://linkedin.com/in/seuusuario" }
+  ]
+};
+
+const $ = id => document.getElementById(id);
+const el = (tag, props = {}, text) => Object.assign(document.createElement(tag), props, text ? { textContent: text } : {});
+
+document.title = DADOS.nome + " — Portfólio";
+$("nome").textContent = DADOS.nome;
+$("titulo").textContent = DADOS.titulo;
+$("rodape").textContent = DADOS.nome;
+$("ano").textContent = new Date().getFullYear();
+DADOS.bio.forEach(p => $("bio").appendChild(el("p", {}, p)));
+DADOS.skills.forEach(s => $("skills").appendChild(el("li", {}, s)));
+DADOS.contatos.forEach(c => $("links").appendChild(el("a", { href: c.href }, c.texto)));
+
+const tags = ["Todos", ...new Set(DADOS.projetos.flatMap(p => p.tags))];
+function render(filtro) {
+  $("lista").replaceChildren();
+  DADOS.projetos.filter(p => filtro === "Todos" || p.tags.includes(filtro)).forEach(p => {
+    const card = el("article", { className: "project" });
+    const h = el("h3"); h.appendChild(el("a", { href: p.link }, p.nome));
+    card.append(h, el("p", {}, p.desc), el("div", { className: "tags" }, p.tags.join(", ")));
+    $("lista").appendChild(card);
+  });
+}
+tags.forEach((t, i) => {
+  const b = el("button", { type: "button" }, t);
+  b.setAttribute("aria-pressed", i === 0);
+  b.onclick = () => {
+    [...$("filtros").children].forEach(x => x.setAttribute("aria-pressed", x === b));
+    render(t);
+  };
+  $("filtros").appendChild(b);
+});
+render("Todos");
+</script>
+</body>
+</html>
